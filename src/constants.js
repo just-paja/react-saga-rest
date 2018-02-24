@@ -1,0 +1,9 @@
+export const FLAG_FAILED = 'failed';
+export const FLAG_LOADING = 'loading';
+export const FLAG_MISSING = 'missing';
+export const FLAG_REQUIRED = 'required';
+export const FLAG_VALID = 'valid';
+export const STATE_DATA = 'data';
+export const STATE_ERROR = 'error';
+export const STATE_ERROR_LIST = 'errors';
+export const STATE_RESOURCE_ID = 'resourceId';
