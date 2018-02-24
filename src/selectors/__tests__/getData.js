@@ -1,4 +1,4 @@
-import getData from '../getData';
+import { getData } from '..';
 
 describe('Common selectors', () => {
   it('getData returns state data attribute', () => {

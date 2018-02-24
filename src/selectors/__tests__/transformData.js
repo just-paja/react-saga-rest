@@ -1,9 +1,11 @@
-import transformData from '../transformData';
+import { transformData } from '..';
 
 describe('transformData selector', () => {
   it('transformData returns plain data when no transformers are passed', () => {
     expect(transformData(state => state, [])({
-      foo: 'bar',
+      data: {
+        foo: 'bar',
+      },
     })).toEqual({
       foo: 'bar',
     });
@@ -13,7 +15,9 @@ describe('transformData selector', () => {
     expect(transformData(state => state, [
       item => ({ ...item, extraNewKey: item.foo }),
     ])({
-      foo: 'bar',
+      data: {
+        foo: 'bar',
+      },
     })).toEqual({
       foo: 'bar',
       extraNewKey: 'bar',
@@ -21,13 +25,13 @@ describe('transformData selector', () => {
   });
 
   it('transformData returns data transformed with selector transformer', () => {
-    expect(transformData(state => state.participants.active.data, [
+    expect(transformData(state => state.participants.active, [
       {
         transform: (item, teams) => ({
           ...item,
-          team: teams.find(team => team.id === item.teamId),
+          team: teams.data.find(team => team.id === item.teamId),
         }),
-        select: state => state.teams.list.data,
+        select: state => state.teams.list,
       },
     ])({
       participants: {
@@ -63,13 +67,13 @@ describe('transformData selector', () => {
   });
 
   it('transformData returns data transformed with chain of transformers', () => {
-    expect(transformData(state => state.participants.active.data, [
+    expect(transformData(state => state.participants.active, [
       {
         transform: (item, teams) => ({
           ...item,
-          team: teams.find(team => team.id === item.teamId),
+          team: teams.data.find(team => team.id === item.teamId),
         }),
-        select: state => state.teams.list.data,
+        select: state => state.teams.list,
       },
       item => ({
         ...item,
@@ -78,9 +82,9 @@ describe('transformData selector', () => {
       {
         transform: (item, roles) => ({
           ...item,
-          roles: roles.filter(role => item.roleIds.indexOf(role.id) !== -1),
+          roles: roles.data.filter(role => item.roleIds.indexOf(role.id) !== -1),
         }),
-        select: state => state.roles.list.data,
+        select: state => state.roles.list,
       },
       {
         transform: item => ({
@@ -157,5 +161,106 @@ describe('transformData selector', () => {
         },
       ],
     });
+  });
+
+  it('transformData returns data sorted with passed sort helper', () => {
+    expect(transformData(state => state.roles.list, {
+      sort: (a, b) => b.id - a.id,
+    })({
+      roles: {
+        list: {
+          data: [
+            {
+              id: 2,
+              name: 'Fridge',
+            },
+            {
+              id: 3,
+              name: 'Leader',
+            },
+            {
+              id: 5,
+              name: 'Owner',
+            },
+            {
+              id: 7,
+              name: 'Manager',
+            },
+          ],
+        },
+      },
+    })).toEqual([
+      {
+        id: 7,
+        name: 'Manager',
+      },
+      {
+        id: 5,
+        name: 'Owner',
+      },
+      {
+        id: 3,
+        name: 'Leader',
+      },
+      {
+        id: 2,
+        name: 'Fridge',
+      },
+    ]);
+  });
+
+  it('transformData returns array transformed', () => {
+    expect(transformData(state => state.roles.list, {
+      transformers: [
+        item => ({
+          ...item,
+          extraNewKey: 'foo',
+        }),
+      ],
+    })({
+      roles: {
+        list: {
+          data: [
+            {
+              id: 2,
+              name: 'Fridge',
+            },
+            {
+              id: 3,
+              name: 'Leader',
+            },
+            {
+              id: 5,
+              name: 'Owner',
+            },
+            {
+              id: 7,
+              name: 'Manager',
+            },
+          ],
+        },
+      },
+    })).toEqual([
+      {
+        id: 2,
+        name: 'Fridge',
+        extraNewKey: 'foo',
+      },
+      {
+        id: 3,
+        name: 'Leader',
+        extraNewKey: 'foo',
+      },
+      {
+        id: 5,
+        name: 'Owner',
+        extraNewKey: 'foo',
+      },
+      {
+        id: 7,
+        name: 'Manager',
+        extraNewKey: 'foo',
+      },
+    ]);
   });
 });

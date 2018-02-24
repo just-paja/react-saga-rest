@@ -1,4 +1,4 @@
-import getProp from '../getProp';
+import { getProp } from '..';
 
 describe('getProp selector', () => {
   it('getProp returns state prop', () => {

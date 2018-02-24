@@ -5,8 +5,8 @@ const transformItem = (transformers, data) => item => transformers.reduce(
     if (transformer instanceof Function) {
       return transformer(aggr);
     }
-    const transformerData = transformer.select ? data.shift() : null;
-    return transformer.transform(aggr, transformerData);
+    const transformerSelection = transformer.select ? data.shift() : null;
+    return transformer.transform(aggr, transformerSelection);
   }, item);
 
 const getTransformerList = (transformOptions) => {

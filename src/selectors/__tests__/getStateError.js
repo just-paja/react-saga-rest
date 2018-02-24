@@ -1,4 +1,4 @@
-import getStateError from '../getStateError';
+import { getStateError } from '..';
 
 describe('getStateError selector', () => {
   it('getStateError returns state error', () => {

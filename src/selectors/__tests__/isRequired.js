@@ -1,4 +1,4 @@
-import isRequired from '../isRequired';
+import { isRequired } from '..';
 
 describe('isRequired selector', () => {
   it('isRequired returns true when state is not loading and not valid', () => {

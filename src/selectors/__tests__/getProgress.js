@@ -1,4 +1,4 @@
-import getProgress from '../getProgress';
+import { getProgress } from '..';
 
 describe('getProgress selector', () => {
   it('getProgress returns true loading flag when state loading flag is truthy', () => {
@@ -193,6 +193,12 @@ describe('getProgress selector', () => {
       error,
     })).toMatchObject({
       error,
+    });
+  });
+
+  it('getProgress returns null error when state is not defined', () => {
+    expect(getProgress(state => state)()).toMatchObject({
+      error: null,
     });
   });
 
