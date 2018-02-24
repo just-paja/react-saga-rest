@@ -1,0 +1,30 @@
+{
+  "name": "redux-saga-resources",
+  "version": "0.1.0",
+  "description": "Fetch and store data from REST APIs using redux, reselect and sagas",
+  "main": "index.js",
+  "scripts": {
+    "test": "node scripts/test.js --env=jsdom"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/just-paja/redux-saga-resources.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "saga",
+    "reselect",
+    "transform",
+    "rest",
+    "api",
+    "store",
+    "reducer"
+  ],
+  "author": "Pavel Žák <pavel@zak.global>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/just-paja/redux-saga-resources/issues"
+  },
+  "homepage": "https://github.com/just-paja/redux-saga-resources#readme"
+}
