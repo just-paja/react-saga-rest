@@ -25,4 +25,8 @@ jobs:
 
       - run:
           name: Run tests
-          command: npm test
+          command: npm test -- --coverage
+
+      - run:
+          name: Publish coverage
+          command: ./node_modules/.bin/codeclimate-test-reporter < coverage/lcov.info
