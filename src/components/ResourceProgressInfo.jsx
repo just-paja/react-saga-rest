@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import {
+  FLAG_FAILED,
+  FLAG_LOADING,
+  FLAG_MISSING,
+  STATE_ERROR,
+  STATE_ERROR_LIST,
+} from '../constants';
+
 import { ResourceListProgress, ResourceProgress, RouteMatch } from '../proptypes';
 
 const getComponentName = component => component.displayName || component.name || 'Component';
@@ -47,14 +55,14 @@ export default (
 
     render() {
       const { progress, ...otherProps } = this.props;
-      if (progress.loading) {
+      if (progress[FLAG_LOADING]) {
         return <ResourceLoader />;
       }
-      if (progress.missing) {
+      if (progress[FLAG_MISSING]) {
         return <NotFound />;
       }
-      if (progress.failed) {
-        return <ResourceError errors={progress.errors || [progress.error]} />;
+      if (progress[FLAG_FAILED]) {
+        return <ResourceError errors={progress[STATE_ERROR_LIST] || [progress[STATE_ERROR]]} />;
       }
       return <WrappedComponent {...otherProps} />;
     }
