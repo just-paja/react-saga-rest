@@ -3,11 +3,11 @@
 To get constants, use one of these.
 
 ```javascript
-import { defaultResourceState } from 'redux-saga-resources';
+import { defaultResourceState } from 'react-saga-rest';
 ```
 
 ```javascript
-import * as constants from 'redux-saga-resources/constants';
+import * as constants from 'react-saga-rest/constants';
 ```
 
 ## Reducer constants
@@ -17,7 +17,7 @@ import * as constants from 'redux-saga-resources/constants';
 Should be used as a default resource reducer state. It can be easily extended when you want your reducer to do more.
 
 ```javascript
-import { defaultResourceState, combine } from 'redux-saga-resources';
+import { defaultResourceState, combine } from 'react-saga-rest';
 ```
 
 ```javascript
@@ -40,7 +40,7 @@ const reducer = combine(initialState, reducers);
 Should be used as a default collection reducer state. It can be easily extended when you want your reducer to do more.
 
 ```javascript
-import { defaultCollectionState, combine } from 'redux-saga-resources';
+import { defaultCollectionState, combine } from 'react-saga-rest';
 ```
 
 ```javascript

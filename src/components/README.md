@@ -5,7 +5,7 @@
 Higher order component used to display progress information - loading, error, object missing. If it passes these checks, then it renders wrapped component. It takes four components that represent the progress state.
 
 ```javascript
-import { ResourceProgressInfo } from 'redux-saga-resources';
+import { ResourceProgressInfo } from 'react-saga-rest';
 
 import ResourceLoader from './ResourceLoader'
 import ResourceError from './ResourceError'

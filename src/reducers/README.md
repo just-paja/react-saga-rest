@@ -9,7 +9,7 @@ Returns reducer collection that responds to actions specified by object. It is u
 This example will respond to USERS_SET, USERS_FETCH_START, USERS_CLEAR.
 
 ```javascript
-import { combine } from 'redux-saga-resources';
+import { combine } from 'react-saga-rest';
 const USERS_CLEAR = 'USERS_CLEAR';
 const USERS_FETCH_START = 'USERS_FETCH_START';
 const USERS_SET = 'USERS_SET';
@@ -32,7 +32,7 @@ const reducer = combine(initialState, {
 Dummy reducer method that is used as a handler of fetch saga error responses.
 
 ```javascript
-import { combine, fetchError } from 'redux-saga-resources';
+import { combine, fetchError } from 'react-saga-rest';
 const reducer = combine(initialState, {
   [USERS_FETCH_FAIL]: fetchError,
 });
@@ -62,7 +62,7 @@ reducer(undefined, {
 Dummy reducer method that is used as a handler of fetch start action.
 
 ```javascript
-import { combine, fetchStart } from 'redux-saga-resources';
+import { combine, fetchStart } from 'react-saga-rest';
 const reducer = combine(initialState, {
   [USERS_FETCH_START]: fetchStart,
 })
@@ -85,7 +85,7 @@ reducer(undefined, { type: USERS_FETCH_START });
 Dummy reducer method that is used as a handler of fetch saga success responses.
 
 ```javascript
-import { combine, fetchSuccess } from 'redux-saga-resources';
+import { combine, fetchSuccess } from 'react-saga-rest';
 const reducer = combine(initialState, {
   [USERS_FETCH_SUCCESS]: fetchSuccess,
 });
@@ -119,7 +119,7 @@ reducer(undefined, {
 Dummy reducer method that is used to invalidate the reducer state.
 
 ```javascript
-import { combine, invalidate } from 'redux-saga-resources';
+import { combine, invalidate } from 'react-saga-rest';
 const reducer = combine(initialState, {
   [USERS_INVALIDATE]: invalidate,
 });
@@ -141,7 +141,7 @@ reducer(undefined, { type: USERS_INVALIDATE });
 Smart reducer method that is used to invalidate the reducer state and reset page on the same time when a parent resource ID changes and the collection state is no longer valid. For example, when you are displaying list of users group on user detail page and display another user.
 
 ```javascript
-import { combine, invalidateOnCollectionChange } from 'redux-saga-resources';
+import { combine, invalidateOnCollectionChange } from 'react-saga-rest';
 const reducer = combine(initialState, {
   [USER_CHANGE]: invalidateOnCollectionChange('userId'),
 });
@@ -163,7 +163,7 @@ reducer({ userId: 939 }, { type: USER_CHANGE, userId: 10 });
 Smart reducer method that is used to invalidate the reducer state when a parent resource ID changes and the resource state is no longer valid. For example, when you are displaying user detail page and user ID gets changed.
 
 ```javascript
-import { combine, invalidateOnResourceChange } from 'redux-saga-resources';
+import { combine, invalidateOnResourceChange } from 'react-saga-rest';
 const reducer =  combine(initialState, {
   [USER_CHANGE]: invalidateOnResourceChange('userId'),
 });
@@ -186,7 +186,7 @@ reducer({ userId: 939 }, { type: USER_CHANGE, userId: 10 });
 Dummy reducer method used to reset its page to zero.
 
 ```javascript
-import { combine, pageReset } from 'redux-saga-resources';
+import { combine, pageReset } from 'react-saga-rest';
 const reducer = combine(initialState, {
   [USER_PAGE_RESET]: pageReset,
 });
@@ -209,7 +209,7 @@ reducer({ page: 1000 }, { type: USER_PAGE_RESET });
 Dummy reducer method used to change its page.
 
 ```javascript
-import { combine, pageSet } from 'redux-saga-resources';
+import { combine, pageSet } from 'react-saga-rest';
 const reducer = combine(initialState, {
   [USER_PAGE_CHANGE]: pageSet,
 });
@@ -231,7 +231,7 @@ reducer({ page: 1000 }, { type: USER_PAGE_CHANGE, page: 20 });
 Dummy reducer method used to toggle one property value on and off.
 
 ```javascript
-import { combine, toggle } from 'redux-saga-resources';
+import { combine, toggle } from 'react-saga-rest';
 const reducer = combine(initialState, {
   [USER_TOGGLE_DELETE_MODAL]: toggle('showDeleteModal'),
 });
@@ -252,7 +252,7 @@ reducer({ showDeleteModal: true }, { type: USER_TOGGLE_DELETE_MODAL });
 Dummy reducer method used to turn off one property.
 
 ```javascript
-import { combine, turnOff } from 'redux-saga-resources';
+import { combine, turnOff } from 'react-saga-rest';
 const reducer = combine(initialState, {
   [USER_HIDE_DELETE_MODAL]: turnOff('showDeleteModal'),
 });
@@ -273,7 +273,7 @@ reducer({ showDeleteModal: true }, { type: USER_HIDE_DELETE_MODAL });
 Dummy reducer method used to turn on one property.
 
 ```javascript
-import { combine, turnOn } from 'redux-saga-resources';
+import { combine, turnOn } from 'react-saga-rest';
 const reducer = combine(initialState, {
   [USER_SHOW_DELETE_MODAL]: turnOn('showDeleteModal'),
 });

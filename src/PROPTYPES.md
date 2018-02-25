@@ -3,7 +3,7 @@
 For your convenience, the Prop Types used in the library are exported as well. To get them, use
 
 ```javascript
-import * as PropTypes from 'redux-saga-resources/proptypes';
+import * as PropTypes from 'react-saga-rest/proptypes';
 ```
 
 See [the code](./proptypes.js) for details.

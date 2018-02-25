@@ -1,8 +1,8 @@
 # Redux saga resources
 
-[![CircleCI](https://circleci.com/gh/just-paja/redux-saga-resources.svg?style=shield)](https://circleci.com/gh/just-paja/redux-saga-resources)
-[![Maintainability](https://api.codeclimate.com/v1/badges/bd67aac0e16f66e5b30f/maintainability)](https://codeclimate.com/github/just-paja/redux-saga-resources/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/bd67aac0e16f66e5b30f/test_coverage)](https://codeclimate.com/github/just-paja/redux-saga-resources/test_coverage)
+[![CircleCI](https://circleci.com/gh/just-paja/react-saga-rest.svg?style=shield)](https://circleci.com/gh/just-paja/react-saga-rest)
+[![Maintainability](https://api.codeclimate.com/v1/badges/fccfdf83eccc364a72b9/maintainability)](https://codeclimate.com/github/just-paja/react-saga-rest/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/fccfdf83eccc364a72b9/test_coverage)](https://codeclimate.com/github/just-paja/react-saga-rest/test_coverage)
 
 Collection of utility functions for [React](https://reactjs.org) [redux](https://redux.js.org), [redux-saga](https://github.com/redux-saga/redux-saga) and [reselect](https://github.com/reactjs/reselect) created to speed up development of React applications that follow the same pattern ofcommunicating with [REST](https://en.wikipedia.org/wiki/Representational_state_transfer)ful API.
 
@@ -21,7 +21,7 @@ See the documentation inside this repository.
 ## Installation
 
 ```shell
-npm install --save redux-saga-resources
+npm install --save react-saga-rest
 ```
 
 ## Dependencies

@@ -1,5 +1,5 @@
 {
-  "name": "redux-saga-resources",
+  "name": "react-saga-rest",
   "version": "1.0.0",
   "description": "Fetch and store data from REST APIs using redux, reselect and sagas",
   "main": "dist/index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/just-paja/redux-saga-resources.git"
+    "url": "git+https://github.com/just-paja/react-saga-rest.git"
   },
   "keywords": [
     "react",
@@ -29,14 +29,14 @@
   "author": "Pavel Žák <pavel@zak.global>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/just-paja/redux-saga-resources/issues"
+    "url": "https://github.com/just-paja/react-saga-rest/issues"
   },
   "files": [
     "dist",
     "LICENSE",
     "README.md"
   ],
-  "homepage": "https://github.com/just-paja/redux-saga-resources#readme",
+  "homepage": "https://github.com/just-paja/react-saga-rest#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-jest": "^22.4.1",
