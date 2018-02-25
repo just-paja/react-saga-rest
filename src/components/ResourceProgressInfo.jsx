@@ -5,7 +5,6 @@ import {
   FLAG_FAILED,
   FLAG_LOADING,
   FLAG_MISSING,
-  STATE_ERROR,
   STATE_ERROR_LIST,
 } from '../constants';
 
@@ -62,7 +61,7 @@ export default (
         return <NotFound />;
       }
       if (progress[FLAG_FAILED]) {
-        return <ResourceError errors={progress[STATE_ERROR_LIST] || [progress[STATE_ERROR]]} />;
+        return <ResourceError errors={progress[STATE_ERROR_LIST] || []} />;
       }
       return <WrappedComponent {...otherProps} />;
     }

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
 
-export default (selector, prop) => createSelector(selector, state => (
+export default (source, prop) => createSelector(source, state => (
   state ? state[prop] : null
 ));

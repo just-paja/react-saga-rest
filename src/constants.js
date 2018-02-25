@@ -10,7 +10,6 @@ export const STATE_DATA = 'data';
 export const STATE_ERROR = 'error';
 export const STATE_ERROR_LIST = 'errors';
 export const STATE_PAGE = 'page';
-export const STATE_RESOURCE_ID = 'resourceId';
 export const STATE_SIZE = 'size';
 export const STATE_TOTAL = 'total';
 

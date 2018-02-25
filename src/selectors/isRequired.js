@@ -12,4 +12,4 @@ export const isStateRequired = state => state && (
   !getFlagValue(state, FLAG_LOADING)
 );
 
-export default selector => createSelector(selector, isStateRequired);
+export default source => createSelector(source, isStateRequired);

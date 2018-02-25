@@ -1,4 +1,7 @@
-import { FLAG_FAILED, FLAG_LOADING } from '../constants';
+import {
+  FLAG_FAILED,
+  FLAG_LOADING,
+} from '../constants';
 
 export default state => ({
   ...state,

@@ -20,10 +20,10 @@ const getTransformerList = (transformOptions) => {
 const getTransformerSelectors = transformers =>
   transformers.filter(transformer => !!transformer.select).map(transformer => transformer.select);
 
-export default (selector, options) => {
+export default (source, options) => {
   const transformers = getTransformerList(options);
   return createSelector(
-    [selector, ...getTransformerSelectors(transformers)],
+    [source, ...getTransformerSelectors(transformers)],
     (state, ...transformationData) => {
       const transform = transformItem(transformers, transformationData);
       if (state.data instanceof Array) {
