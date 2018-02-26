@@ -2,11 +2,10 @@
   "name": "react-saga-rest",
   "version": "1.0.1",
   "description": "Fetch and store data from REST APIs using redux, reselect and sagas",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build:regular": "babel -d dist src --ignore *test*",
-    "build": "npm run build:regular",
-    "clean": "rimraf dist",
+    "build": "babel -d lib src --ignore *test*",
+    "clean": "rimraf lib",
     "prepack": "npm test && npm run build",
     "pretest": "eslint src",
     "test": "jest"
@@ -32,7 +31,7 @@
     "url": "https://github.com/just-paja/react-saga-rest/issues"
   },
   "files": [
-    "dist",
+    "lib",
     "LICENSE",
     "README.md"
   ],
