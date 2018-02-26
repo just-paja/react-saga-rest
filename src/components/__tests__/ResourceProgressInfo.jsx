@@ -28,6 +28,17 @@ describe('ResourceProgressInfo component', () => {
     expect(comp.find('ResourceLoader')).toHaveLength(1);
   });
 
+  it('renders loader when not loading and not valid', () => {
+    const comp = shallow(
+      <MockComponent
+        match={{ params: { } }}
+        onResourceChange={() => {}}
+        progress={{ valid: false }}
+      />
+    );
+    expect(comp.find('ResourceLoader')).toHaveLength(1);
+  });
+
   it('renders not found when missing', () => {
     const comp = shallow(
       <MockComponent
@@ -50,14 +61,14 @@ describe('ResourceProgressInfo component', () => {
     expect(comp.find('ResourceError')).toHaveLength(1);
   });
 
-  it('renders wrapped component with passed props when not loading, not failed and found', () => {
+  it('renders wrapped component with passed props when not loading, not failed, valid and found', () => {
     const comp = shallow(
       <MockComponent
         bar="foo"
         foo="bar"
         match={{ params: {} }}
         onResourceChange={() => {}}
-        progress={{ }}
+        progress={{ valid: true }}
       />
     );
     expect(comp.find('WrappedComponent').props()).toMatchObject({
