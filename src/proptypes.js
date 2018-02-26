@@ -9,6 +9,24 @@ export const ErrorType = PropTypes.oneOfType([
   PropTypes.string,
 ]);
 
+export const LocationProp = PropTypes.shape({
+  pathname: PropTypes.string,
+});
+
+export const HistoryProp = PropTypes.shape({
+  action: PropTypes.string,
+  block: PropTypes.func,
+  createHref: PropTypes.func,
+  go: PropTypes.func,
+  goBack: PropTypes.func,
+  goForward: PropTypes.func,
+  length: PropTypes.number,
+  listen: PropTypes.func,
+  location: LocationProp.isRequired,
+  push: PropTypes.func,
+  replace: PropTypes.func,
+});
+
 export const ResourceId = PropTypes.oneOfType([
   PropTypes.string,
   PropTypes.number,
