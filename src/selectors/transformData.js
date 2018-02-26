@@ -28,7 +28,7 @@ export default (source, options) => {
       const transform = transformItem(transformers, transformationData);
       if (state.data instanceof Array) {
         const transformedItems = state.data.map(transform);
-        if (options.sort) {
+        if (!(options instanceof Array) && options.sort) {
           return transformedItems.sort(options.sort);
         }
         return transformedItems;
