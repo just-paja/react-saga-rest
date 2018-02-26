@@ -44,7 +44,7 @@ describe('Common saga helpers', () => {
     }).toThrow();
   });
 
-  it('fetchResource dispatches onStart and onSuccess actions', () => {
+  it('fetchResource dispatches start and onSuccess actions', () => {
     const fetch = () => {};
     const testFetch = fetchResource(fetch, {
       actions: {
