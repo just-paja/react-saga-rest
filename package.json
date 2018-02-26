@@ -66,10 +66,11 @@
     "sinon": "^4.4.1"
   },
   "peerDependencies": {
-    "prop-types": "^15.0.0",
-    "redux-saga": "^0.16.0",
-    "redux": "^3.0.0",
-    "reselect": "^3.0.0"
+    "react": ">=15.0.0",
+    "prop-types": ">=15.0.0",
+    "redux-saga": ">=0.14.0",
+    "redux": ">=2.0.0",
+    "reselect": ">=2.0.0"
   },
   "jest": {
     "collectCoverageFrom": [
