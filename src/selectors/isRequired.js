@@ -7,7 +7,7 @@ import {
   FLAG_LOADING,
 } from '../constants';
 
-export const isStateRequired = state => state && (
+export const isStateRequired = state => !state || (
   !getFlagValue(state, FLAG_VALID) &&
   !getFlagValue(state, FLAG_LOADING)
 );

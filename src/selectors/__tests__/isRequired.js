@@ -1,6 +1,10 @@
 import { isRequired } from '..';
 
 describe('isRequired selector', () => {
+  it('isRequired returns true when state does not exist', () => {
+    expect(isRequired(state => state)(undefined)).toBe(true);
+  });
+
   it('isRequired returns true when state is not loading and not valid', () => {
     expect(isRequired(state => state)({
       loading: false,
