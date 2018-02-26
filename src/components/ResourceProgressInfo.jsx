@@ -33,7 +33,7 @@ export default (
   WrappedComponent
 ) => {
   class ResourceProgressInfo extends Component {
-    componentDidMount() {
+    componentWillMount() {
       this.handleResourceChange();
     }
 
