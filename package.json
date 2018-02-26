@@ -60,7 +60,9 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
     "redux": "^3.7.2",
+    "redux-mock-store": "^1.5.1",
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "sinon": "^4.4.1"

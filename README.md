@@ -10,12 +10,13 @@ Collection of utility functions for [React](https://reactjs.org) [redux](https:/
 
 See the documentation inside this repository.
 
-* [Constants](./src/CONSTANTS.md)
-* [Reducers](./src/reducers)
-* [Selectors](./src/selectors)
-* [Sagas](./src/sagas)
 * [Components](./src/components)
+* [Constants](./src/CONSTANTS.md)
+* [Mappers](./src/mappers.md)
 * [Prop Types](./src/PROPTYPES.md)
+* [Reducers](./src/reducers)
+* [Sagas](./src/sagas)
+* [Selectors](./src/selectors)
 
 
 ## Installation

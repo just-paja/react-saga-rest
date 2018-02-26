@@ -37,6 +37,28 @@ describe('getProgress selector', () => {
     });
   });
 
+  it('getProgress returns true missing flag when state missing flag is truthy', () => {
+    expect(getProgress(state => state)({
+      missing: true,
+    })).toMatchObject({
+      missing: true,
+    });
+  });
+
+  it('getProgress returns false missing flag when state missing flag is falsy', () => {
+    expect(getProgress(state => state)({
+      missing: false,
+    })).toMatchObject({
+      missing: false,
+    });
+  });
+
+  it('getProgress returns false missing flag when state missing flag is missing', () => {
+    expect(getProgress(state => state)({})).toMatchObject({
+      missing: false,
+    });
+  });
+
   it('getProgress returns false loading flag when all loading flags is truthy', () => {
     expect(getProgress(
       state => state.a,
@@ -192,13 +214,13 @@ describe('getProgress selector', () => {
     expect(getProgress(state => state)({
       error,
     })).toMatchObject({
-      error,
+      errors: [error],
     });
   });
 
-  it('getProgress returns null error when state is not defined', () => {
+  it('getProgress returns empty errors when state is not defined', () => {
     expect(getProgress(state => state)()).toMatchObject({
-      error: null,
+      errors: [],
     });
   });
 
@@ -220,9 +242,9 @@ describe('getProgress selector', () => {
     });
   });
 
-  it('getProgress returns null error when state error is empty', () => {
+  it('getProgress returns empty errors when state error is empty', () => {
     expect(getProgress(state => state)({})).toMatchObject({
-      error: null,
+      errors: [],
     });
   });
 });

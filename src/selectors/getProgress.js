@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
 
 import getFlagValue from './getFlagValue';
-import getStateError from './getStateError';
 
 import { isStateRequired } from './isRequired';
 import {
   FLAG_FAILED,
   FLAG_LOADING,
+  FLAG_MISSING,
   FLAG_REQUIRED,
   FLAG_VALID,
   STATE_ERROR,
@@ -16,9 +16,10 @@ import {
 const translateStateProgress = state => ({
   [FLAG_FAILED]: getFlagValue(state, FLAG_FAILED),
   [FLAG_LOADING]: getFlagValue(state, FLAG_LOADING),
+  [FLAG_MISSING]: getFlagValue(state, FLAG_MISSING),
   [FLAG_REQUIRED]: isStateRequired(state),
   [FLAG_VALID]: getFlagValue(state, FLAG_VALID),
-  [STATE_ERROR]: state ? state[STATE_ERROR] || null : null,
+  [STATE_ERROR_LIST]: state && state[STATE_ERROR] ? [state[STATE_ERROR]] : [],
 });
 
 export default (...selectors) => createSelector(
@@ -33,7 +34,8 @@ export default (...selectors) => createSelector(
       [FLAG_LOADING]: progressMap.some(state => getFlagValue(state, FLAG_LOADING)),
       [FLAG_VALID]: progressMap.every(state => getFlagValue(state, FLAG_VALID)),
       [STATE_ERROR_LIST]: progressMap
-        .filter(getStateError)
-        .map(getStateError),
+        .filter(progress => progress.errors.length > 0)
+        .map(progress => progress[STATE_ERROR_LIST])
+        .reduce((aggr, errors) => aggr.concat(errors), []),
     };
   });

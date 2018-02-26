@@ -1,10 +1,6 @@
 import * as lib from '..';
 
 describe('Library entry point', () => {
-  it('provides resource progress info component', () => {
-    expect(lib).toHaveProperty('ResourceProgressInfo');
-  });
-
   it('provides combine reducer', () => {
     expect(lib).toHaveProperty('combine');
   });
@@ -87,5 +83,13 @@ describe('Library entry point', () => {
 
   it('provides transformData selector', () => {
     expect(lib).toHaveProperty('transformData');
+  });
+
+  it('provides mapSceneProgress mapper', () => {
+    expect(lib).toHaveProperty('mapSceneProgress');
+  });
+
+  it('provides SceneProgress component', () => {
+    expect(lib).toHaveProperty('SceneProgress');
   });
 });
