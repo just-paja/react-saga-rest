@@ -72,19 +72,20 @@ export default class SceneProgress extends Component {
       progress,
       ...otherProps
     } = this.props;
-    if (progress[FLAG_LOADING] && LoaderComponent) {
-      return <LoaderComponent />;
+    let result;
+
+    if (progress[FLAG_LOADING]) {
+      result = <LoaderComponent />;
+    } else if (progress[FLAG_MISSING]) {
+      result = <NotFoundComponent />;
+    } else if (progress[FLAG_FAILED]) {
+      result = <ErrorComponent errors={progress[STATE_ERROR_LIST] || []} />;
+    } else if (!progress[FLAG_VALID]) {
+      result = <LoaderComponent />;
+    } else {
+      result = <WrappedComponent {...otherProps} />;
     }
-    if (progress[FLAG_MISSING] && NotFoundComponent) {
-      return <NotFoundComponent />;
-    }
-    if (progress[FLAG_FAILED] && ErrorComponent) {
-      return <ErrorComponent errors={progress[STATE_ERROR_LIST] || []} />;
-    }
-    if (!progress[FLAG_VALID] && LoaderComponent) {
-      return <LoaderComponent />;
-    }
-    return <WrappedComponent {...otherProps} />;
+    return result;
   }
 }
 
