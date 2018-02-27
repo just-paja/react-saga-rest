@@ -1,13 +1,21 @@
 import { createSelector } from 'reselect';
 
-const transformItem = (transformers, data) => item => transformers.reduce(
-  (aggr, transformer) => {
-    if (transformer instanceof Function) {
-      return transformer(aggr);
-    }
-    const transformerSelection = transformer.select ? data.shift() : null;
-    return transformer.transform(aggr, transformerSelection);
-  }, item);
+const callStackTransform = (transformer, item, dataStack) => {
+  const transformerArgs = [];
+  if (transformer.select) {
+    transformerArgs.push(dataStack.shift());
+  }
+  return transformer.transform(item, ...transformerArgs);
+};
+
+const transformItem = (transformers, data) => (item) => {
+  const dataStack = data.slice();
+  return transformers.reduce((aggr, transformer) => (
+    (transformer instanceof Function) ?
+      transformer(aggr) :
+      callStackTransform(transformer, aggr, dataStack)
+  ), item);
+};
 
 const getTransformerList = (transformOptions) => {
   const transformerList = (transformOptions instanceof Array ?
@@ -20,20 +28,22 @@ const getTransformerList = (transformOptions) => {
 const getTransformerSelectors = transformers =>
   transformers.filter(transformer => !!transformer.select).map(transformer => transformer.select);
 
+const transformArray = (transform, data, options) => {
+  const transformedItems = data.map(transform);
+  return !(options instanceof Array) && options.sort ?
+    transformedItems.sort(options.sort) :
+    transformedItems;
+};
+
 export default (source, options) => {
   const transformers = getTransformerList(options);
   return createSelector(
     [source, ...getTransformerSelectors(transformers)],
     (state, ...transformationData) => {
       const transform = transformItem(transformers, transformationData);
-      if (state.data instanceof Array) {
-        const transformedItems = state.data.map(transform);
-        if (!(options instanceof Array) && options.sort) {
-          return transformedItems.sort(options.sort);
-        }
-        return transformedItems;
-      }
-      return transform(state.data);
+      return (state.data instanceof Array) ?
+        transformArray(transform, state.data, options) :
+        transform(state.data);
     }
   );
 };
