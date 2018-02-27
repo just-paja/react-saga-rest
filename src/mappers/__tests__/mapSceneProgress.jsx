@@ -46,6 +46,42 @@ describe('mapSceneProgress mapper', () => {
     }).toThrow();
   });
 
+  it('uses wrapped component display name in composed display name', () => {
+    const WrappedItem = () => <span />;
+    WrappedItem.displayName = 'foo';
+    const compClass = mapSceneProgress(WrappedItem, {
+      NotFoundComponent,
+      ErrorComponent,
+      LoaderComponent,
+      progressSelector: () => {},
+      onResourceChange: () => {},
+    });
+    expect(compClass.displayName).toBe('Connect(SceneProgress(foo))');
+  });
+
+  it('uses wrapped component name in composed display name', () => {
+    const WrappedItem = () => <span />;
+    const compClass = mapSceneProgress(WrappedItem, {
+      NotFoundComponent,
+      ErrorComponent,
+      LoaderComponent,
+      progressSelector: () => {},
+      onResourceChange: () => {},
+    });
+    expect(compClass.displayName).toBe('Connect(SceneProgress(WrappedItem))');
+  });
+
+  it('uses Component when name is unavailable in composed display name', () => {
+    const compClass = mapSceneProgress(() => <span />, {
+      NotFoundComponent,
+      ErrorComponent,
+      LoaderComponent,
+      progressSelector: () => {},
+      onResourceChange: () => {},
+    });
+    expect(compClass.displayName).toBe('Connect(SceneProgress(Component))');
+  });
+
   it('passes not found component to progress info as prop', () => {
     const CompClass = mapSceneProgress(WrappedComponent, {
       NotFoundComponent,
@@ -59,7 +95,7 @@ describe('mapSceneProgress mapper', () => {
         store: mockStore(),
       },
     });
-    expect(comp.find('SceneProgress')).toHaveProp(
+    expect(comp.find('SceneProgress(WrappedComponent)')).toHaveProp(
       'NotFoundComponent',
       NotFoundComponent
     );
@@ -78,7 +114,7 @@ describe('mapSceneProgress mapper', () => {
         store: mockStore(),
       },
     });
-    expect(comp.find('SceneProgress')).toHaveProp(
+    expect(comp.find('SceneProgress(WrappedComponent)')).toHaveProp(
       'ErrorComponent',
       ErrorComponent
     );
@@ -97,7 +133,7 @@ describe('mapSceneProgress mapper', () => {
         store: mockStore(),
       },
     });
-    expect(comp.find('SceneProgress')).toHaveProp(
+    expect(comp.find('SceneProgress(WrappedComponent)')).toHaveProp(
       'LoaderComponent',
       LoaderComponent
     );
@@ -116,7 +152,7 @@ describe('mapSceneProgress mapper', () => {
         store: mockStore(),
       },
     });
-    expect(comp.find('SceneProgress')).toHaveProp(
+    expect(comp.find('SceneProgress(WrappedComponent)')).toHaveProp(
       'WrappedComponent',
       WrappedComponent
     );
@@ -141,7 +177,7 @@ describe('mapSceneProgress mapper', () => {
         }),
       },
     });
-    expect(comp.find('SceneProgress')).toHaveProp('progress', {
+    expect(comp.find('SceneProgress(WrappedComponent)')).toHaveProp('progress', {
       valid: true,
     });
   });
@@ -164,7 +200,7 @@ describe('mapSceneProgress mapper', () => {
     const comp = shallow(<CompClass />, {
       context: { store },
     });
-    comp.find('SceneProgress').simulate('resourceChange');
+    comp.find('SceneProgress(WrappedComponent)').simulate('resourceChange');
     expect(store.getActions()).toMatchObject([
       { type: 'RESOURCE_CHANGED' },
     ]);

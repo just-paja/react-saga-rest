@@ -21,6 +21,16 @@ export default (WrappedComponent, {
     throw new Error('You must pass progressSelector.');
   }
 
+  class SceneProgressNamed extends SceneProgress {
+  }
+
+  const wrappedName = (
+    WrappedComponent.displayName ||
+    WrappedComponent.name ||
+    'Component'
+  );
+  SceneProgressNamed.displayName = `SceneProgress(${wrappedName})`;
+
   const mapStateToProps = state => ({
     progress: progressSelector(state),
     WrappedComponent,
@@ -33,5 +43,5 @@ export default (WrappedComponent, {
   return connect(mapStateToProps, {
     onResourceChange,
     onExit,
-  })(SceneProgress);
+  })(SceneProgressNamed);
 };
