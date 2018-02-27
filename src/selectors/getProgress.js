@@ -32,6 +32,8 @@ export default (...selectors) => createSelector(
     return {
       [FLAG_FAILED]: progressMap.some(state => getFlagValue(state, FLAG_FAILED)),
       [FLAG_LOADING]: progressMap.some(state => getFlagValue(state, FLAG_LOADING)),
+      [FLAG_MISSING]: progressMap.some(state => getFlagValue(state, FLAG_MISSING)),
+      [FLAG_REQUIRED]: progressMap.some(state => getFlagValue(state, FLAG_REQUIRED)),
       [FLAG_VALID]: progressMap.every(state => getFlagValue(state, FLAG_VALID)),
       [STATE_ERROR_LIST]: progressMap
         .filter(progress => progress.errors.length > 0)

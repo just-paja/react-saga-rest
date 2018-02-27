@@ -37,6 +37,20 @@ describe('getProgress selector', () => {
     });
   });
 
+  it('getProgress returns false loading flag when all loading flags are truthy', () => {
+    expect(getProgress(
+      state => state.a,
+      state => state.b,
+      state => state.c
+    )({
+      a: { loading: false },
+      b: { loading: false },
+      c: { loading: false },
+    })).toMatchObject({
+      loading: false,
+    });
+  });
+
   it('getProgress returns true missing flag when state missing flag is truthy', () => {
     expect(getProgress(state => state)({
       missing: true,
@@ -59,17 +73,31 @@ describe('getProgress selector', () => {
     });
   });
 
-  it('getProgress returns false loading flag when all loading flags is truthy', () => {
+  it('getProgress returns true missing flag when at least one missing flag is truthy', () => {
     expect(getProgress(
       state => state.a,
       state => state.b,
       state => state.c
     )({
-      a: { loading: false },
-      b: { loading: false },
-      c: { loading: false },
+      a: { missing: false },
+      b: { missing: true },
+      c: { missing: false },
     })).toMatchObject({
-      loading: false,
+      missing: true,
+    });
+  });
+
+  it('getProgress returns false missing flag when all missing flags are truthy', () => {
+    expect(getProgress(
+      state => state.a,
+      state => state.b,
+      state => state.c
+    )({
+      a: { missing: false },
+      b: { missing: false },
+      c: { missing: false },
+    })).toMatchObject({
+      missing: false,
     });
   });
 
@@ -109,7 +137,7 @@ describe('getProgress selector', () => {
     });
   });
 
-  it('getProgress returns false failed flag when all failed flags is truthy', () => {
+  it('getProgress returns false failed flag when all failed flags are truthy', () => {
     expect(getProgress(
       state => state.a,
       state => state.b,
@@ -204,6 +232,34 @@ describe('getProgress selector', () => {
     expect(getProgress(state => state)({
       loading: true,
       valid: true,
+    })).toMatchObject({
+      required: false,
+    });
+  });
+
+  it('getProgress returns true required flag when at least one required flag is truthy', () => {
+    expect(getProgress(
+      state => state.a,
+      state => state.b,
+      state => state.c
+    )({
+      a: { valid: true },
+      b: { valid: false },
+      c: { valid: true },
+    })).toMatchObject({
+      required: true,
+    });
+  });
+
+  it('getProgress returns false required flag when all required flags are truthy', () => {
+    expect(getProgress(
+      state => state.a,
+      state => state.b,
+      state => state.c
+    )({
+      a: { valid: true },
+      b: { valid: true },
+      c: { valid: true },
     })).toMatchObject({
       required: false,
     });
