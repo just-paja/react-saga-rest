@@ -46,22 +46,21 @@ export default class SceneProgress extends Component {
   componentWillUnmount() {
     const { history, location } = this.props;
     if (history && history.location.pathname !== location.pathname && this.props.onExit) {
-      const resourceId = getMatchId(this.props, this.props.matchParam);
-      const args = [];
-      if (resourceId !== undefined) {
-        args.push(resourceId);
-      }
-      this.props.onExit(...args);
+      this.handleMethodCall(this.props.onExit);
     }
   }
 
-  handleResourceChange() {
+  handleMethodCall(method) {
     const resourceId = getMatchId(this.props, this.props.matchParam);
     const args = [];
     if (resourceId !== undefined) {
       args.push(resourceId);
     }
-    this.props.onResourceChange(...args);
+    method(...args);
+  }
+
+  handleResourceChange() {
+    this.handleMethodCall(this.props.onResourceChange);
   }
 
   render() {
