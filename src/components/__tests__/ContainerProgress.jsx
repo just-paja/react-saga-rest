@@ -148,6 +148,31 @@ describe('ContainerProgress component', () => {
     expect(resourceChangeSpy.calledOnce).toBeTruthy();
   });
 
+  it('triggers onResourceChange with null on update when match params id changes and new id is falsy', () => {
+    const resourceChangeSpy = sinon.spy();
+    const comp = shallow(
+      <ContainerProgress
+        ErrorComponent={ErrorComponent}
+        LoaderComponent={LoaderComponent}
+        NotFoundComponent={NotFoundComponent}
+        WrappedComponent={WrappedComponent}
+        bar="foo"
+        foo="bar"
+        resourceId="329"
+        matchParam="someResourceId"
+        onResourceChange={resourceChangeSpy}
+        progress={{ }}
+      />
+    );
+    resourceChangeSpy.resetHistory();
+    comp.setProps({
+      resourceId: undefined,
+    });
+    expect(resourceChangeSpy.called).toBeTruthy();
+    expect(resourceChangeSpy.args).toEqual([[null]]);
+    expect(resourceChangeSpy.calledOnce).toBeTruthy();
+  });
+
   it('does not trigger onResourceChange on update when match params do not change', () => {
     const resourceChangeSpy = sinon.spy();
     const comp = shallow(

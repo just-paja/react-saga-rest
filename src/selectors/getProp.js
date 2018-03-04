@@ -1,5 +1,20 @@
 import { createSelector } from 'reselect';
 
-export default (source, prop) => createSelector(source, state => (
-  state ? state[prop] : null
-));
+const getStateProp = prop => state => (
+  state ? (state[prop] || null) : null
+);
+
+export default (sources, prop) => {
+  const getter = getStateProp(prop);
+  if (sources instanceof Function) {
+    return createSelector(sources, getter);
+  }
+  const keys = Object.keys(sources);
+  return createSelector(
+    keys.map(key => sources[key]),
+    (...states) => states.reduce((aggr, state, index) => ({
+      ...aggr,
+      [keys[index]]: getter(state),
+    }), {})
+  );
+};
