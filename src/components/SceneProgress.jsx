@@ -1,13 +1,4 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import {
-  FLAG_FAILED,
-  FLAG_LOADING,
-  FLAG_MISSING,
-  FLAG_VALID,
-  STATE_ERROR_LIST,
-} from '../constants';
 
 import {
   ResourceProgress,
@@ -15,6 +6,8 @@ import {
   HistoryProp,
   LocationProp,
 } from '../proptypes';
+
+import ContainerProgress from './ContainerProgress';
 
 const getMatchId = (source, matchParam) => {
   const { match } = source;
@@ -30,7 +23,7 @@ const getMatchId = (source, matchParam) => {
   return null;
 };
 
-export default class SceneProgress extends Component {
+export default class SceneProgress extends ContainerProgress {
   componentWillMount() {
     this.handleResourceChange();
   }
@@ -61,31 +54,6 @@ export default class SceneProgress extends Component {
 
   handleResourceChange() {
     this.handleMethodCall(this.props.onResourceChange);
-  }
-
-  render() {
-    const {
-      ErrorComponent,
-      LoaderComponent,
-      NotFoundComponent,
-      WrappedComponent,
-      progress,
-      ...otherProps
-    } = this.props;
-    let result;
-
-    if (progress[FLAG_LOADING]) {
-      result = <LoaderComponent />;
-    } else if (progress[FLAG_MISSING]) {
-      result = <NotFoundComponent />;
-    } else if (progress[FLAG_FAILED]) {
-      result = <ErrorComponent errors={progress[STATE_ERROR_LIST] || []} />;
-    } else if (!progress[FLAG_VALID]) {
-      result = <LoaderComponent />;
-    } else {
-      result = <WrappedComponent {...otherProps} />;
-    }
-    return result;
   }
 }
 
