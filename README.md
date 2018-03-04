@@ -12,7 +12,7 @@ See the documentation inside this repository.
 
 * [Components](./src/components)
 * [Constants](./src/CONSTANTS.md)
-* [Mappers](./src/mappers.md)
+* [Mappers](./src/mappers)
 * [Prop Types](./src/PROPTYPES.md)
 * [Reducers](./src/reducers)
 * [Sagas](./src/sagas)

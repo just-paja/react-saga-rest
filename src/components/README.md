@@ -1,5 +1,11 @@
 # Components
 
+### ContainerProgress
+
+Component used to display progress information - loading, error, object missing. If it passes these checks, then it renders wrapped component. It takes four components that represent the progress state.
+
+It is used with [mapContainerProgress](../mappers) mapper.
+
 ### SceneProgress
 
 Component used to display progress information - loading, error, object missing. If it passes these checks, then it renders wrapped component. It takes four components that represent the progress state.
