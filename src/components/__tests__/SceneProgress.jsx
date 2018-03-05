@@ -348,4 +348,35 @@ describe('SceneProgress component', () => {
     comp.unmount();
     expect(exitSpy.called).toBeFalsy();
   });
+
+  it('passes route params to the child component', () => {
+    const history = {
+      location: {
+        pathname: '/foo/bar',
+      },
+    };
+    const comp = shallow(
+      <SceneProgress
+        ErrorComponent={ErrorComponent}
+        LoaderComponent={LoaderComponent}
+        NotFoundComponent={NotFoundComponent}
+        WrappedComponent={WrappedComponent}
+        history={history}
+        location={{ pathname: '/foo/bar' }}
+        match={{
+          params: {
+            someResourceId: 329,
+            someUnrelatedParam: 'x23',
+          },
+        }}
+        matchParam="someResourceId"
+        onResourceChange={() => {}}
+        progress={{ valid: true }}
+      />
+    );
+    expect(comp.find('WrappedComponent')).toHaveProp('routeParams', {
+      someResourceId: 329,
+      someUnrelatedParam: 'x23',
+    });
+  });
 });

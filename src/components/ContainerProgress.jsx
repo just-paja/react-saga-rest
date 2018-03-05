@@ -31,6 +31,11 @@ export default class ContainerProgress extends Component {
     }
   }
 
+  renderWrappedComponent(componentProps) {
+    const { WrappedComponent } = this.props;
+    return <WrappedComponent {...componentProps} />;
+  }
+
   render() {
     const {
       ErrorComponent,
@@ -51,7 +56,7 @@ export default class ContainerProgress extends Component {
     } else if (!progress[FLAG_VALID]) {
       result = <LoaderComponent />;
     } else {
-      result = <WrappedComponent {...otherProps} />;
+      result = this.renderWrappedComponent(otherProps);
     }
     return result;
   }

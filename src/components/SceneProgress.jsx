@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -54,6 +55,11 @@ export default class SceneProgress extends ContainerProgress {
 
   handleResourceChange() {
     this.handleMethodCall(this.props.onResourceChange);
+  }
+
+  renderWrappedComponent(componentProps) {
+    const { WrappedComponent } = this.props;
+    return <WrappedComponent routeParams={this.props.match.params} {...componentProps} />;
   }
 }
 
