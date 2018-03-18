@@ -40,8 +40,12 @@ export default class SceneProgress extends ContainerProgress {
     }
   }
 
+  getResourceId() {
+    return getMatchId(this.props, this.props.matchParam);
+  }
+
   handleResourceMethodCall(method) {
-    const resourceId = getMatchId(this.props, this.props.matchParam);
+    const resourceId = this.getResourceId();
     const args = [];
     if (resourceId !== undefined) {
       args.push(resourceId);
