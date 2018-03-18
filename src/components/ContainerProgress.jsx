@@ -41,8 +41,12 @@ export default class ContainerProgress extends Component {
     }
   }
 
+  getResourceId() {
+    return this.props.resourceId || null;
+  }
+
   handleResourceChange() {
-    this.props.onResourceChange(this.props.resourceId || null);
+    this.props.onResourceChange(this.getResourceId());
   }
 
   renderWrappedComponent(componentProps) {
