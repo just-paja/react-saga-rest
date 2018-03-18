@@ -374,9 +374,11 @@ describe('SceneProgress component', () => {
         progress={{ valid: true }}
       />
     );
-    expect(comp.find('WrappedComponent')).toHaveProp('routeParams', {
-      someResourceId: 329,
-      someUnrelatedParam: 'x23',
+    expect(comp.find('WrappedComponent')).toHaveProp('match', {
+      params: {
+        someResourceId: 329,
+        someUnrelatedParam: 'x23',
+      },
     });
   });
 });
