@@ -36,11 +36,11 @@ export default class SceneProgress extends ContainerProgress {
   componentWillUnmount() {
     const { history, location } = this.props;
     if (history && history.location.pathname !== location.pathname && this.props.onExit) {
-      this.handleMethodCall(this.props.onExit);
+      this.handleResourceMethodCall(this.props.onExit);
     }
   }
 
-  handleMethodCall(method) {
+  handleResourceMethodCall(method) {
     const resourceId = getMatchId(this.props, this.props.matchParam);
     const args = [];
     if (resourceId !== undefined) {
@@ -50,7 +50,7 @@ export default class SceneProgress extends ContainerProgress {
   }
 
   handleResourceChange() {
-    this.handleMethodCall(this.props.onResourceChange);
+    this.handleResourceMethodCall(this.props.onResourceChange);
   }
 }
 
