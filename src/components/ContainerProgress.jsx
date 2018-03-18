@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import {
   FLAG_FAILED,
@@ -14,14 +14,24 @@ import {
   ResourceProgress,
 } from '../proptypes';
 
+import { isOnServer } from '../utils';
+
 export default class ContainerProgress extends Component {
   componentWillMount() {
-    this.props.onResourceChange(this.props.resourceId || null);
+    if (isOnServer()) {
+      this.handleResourceChange();
+    }
+  }
+
+  componentDidMount() {
+    if (!isOnServer()) {
+      this.handleResourceChange();
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.resourceId !== prevProps.resourceId) {
-      this.props.onResourceChange(this.props.resourceId || null);
+      this.handleResourceChange();
     }
   }
 
@@ -29,6 +39,10 @@ export default class ContainerProgress extends Component {
     if (this.props.onExit) {
       this.props.onExit(this.props.resourceId || null);
     }
+  }
+
+  handleResourceChange() {
+    this.props.onResourceChange(this.props.resourceId || null);
   }
 
   renderWrappedComponent(componentProps) {
@@ -65,13 +79,13 @@ export default class ContainerProgress extends Component {
 ContainerProgress.propTypes = {
   ErrorComponent: PropTypes.func.isRequired,
   LoaderComponent: PropTypes.func.isRequired,
-  NotFoundComponent: PropTypes.func.isRequired,
-  WrappedComponent: PropTypes.func.isRequired,
   matchParam: PropTypes.string,
+  NotFoundComponent: PropTypes.func.isRequired,
   onExit: PropTypes.func,
   onResourceChange: PropTypes.func.isRequired,
   progress: ResourceProgress.isRequired,
   resourceId: ResourceId,
+  WrappedComponent: PropTypes.func.isRequired,
 };
 
 ContainerProgress.defaultProps = {

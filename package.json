@@ -79,5 +79,7 @@
     ],
     "setupTestFrameworkScriptFile": "<rootDir>/jest/enzyme.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "exenv": "^1.2.2"
+  }
 }

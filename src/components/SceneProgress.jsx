@@ -25,10 +25,6 @@ const getMatchId = (source, matchParam) => {
 };
 
 export default class SceneProgress extends ContainerProgress {
-  componentWillMount() {
-    this.handleResourceChange();
-  }
-
   componentDidUpdate(prevProps) {
     const prevId = getMatchId(prevProps, this.props.matchParam);
     const currentId = getMatchId(this.props, this.props.matchParam);

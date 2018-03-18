@@ -5,12 +5,23 @@ import { shallow } from 'enzyme';
 
 import { ContainerProgress } from '..';
 
+import * as utils from '../../utils';
+
 const NotFoundComponent = () => <span className="not-found" />;
 const ErrorComponent = () => <span className="error" />;
 const LoaderComponent = () => <span className="loader" />;
 const WrappedComponent = () => <span className="foo" />;
 
 describe('ContainerProgress component', () => {
+  beforeEach(() => {
+    sinon.stub(utils, 'isOnServer');
+    utils.isOnServer.returns(false);
+  });
+
+  afterEach(() => {
+    utils.isOnServer.restore();
+  });
+
   it('renders loader when loading', () => {
     const comp = shallow(
       <ContainerProgress
@@ -87,6 +98,25 @@ describe('ContainerProgress component', () => {
   });
 
   it('triggers onResourceChange with null resourceId on mount when not passed', () => {
+    const resourceChangeSpy = sinon.spy();
+    shallow(
+      <ContainerProgress
+        ErrorComponent={ErrorComponent}
+        LoaderComponent={LoaderComponent}
+        NotFoundComponent={NotFoundComponent}
+        WrappedComponent={WrappedComponent}
+        bar="foo"
+        foo="bar"
+        onResourceChange={resourceChangeSpy}
+        progress={{ }}
+      />
+    );
+    expect(resourceChangeSpy.calledOnce).toBeTruthy();
+    expect(resourceChangeSpy.args).toEqual([[null]]);
+  });
+
+  it('triggers onResourceChange with null resourceId on mount when not passed on server', () => {
+    utils.isOnServer.returns(true);
     const resourceChangeSpy = sinon.spy();
     shallow(
       <ContainerProgress
