@@ -1,6 +1,7 @@
 export { default as combine } from './combine';
 export { default as fetchError } from './fetchError';
 export { default as fetchStart } from './fetchStart';
+export { default as fetchStop } from './fetchStop';
 export { default as fetchSuccess } from './fetchSuccess';
 export { default as invalidate } from './invalidate';
 export { default as invalidateOnCollectionChange } from './invalidateOnCollectionChange';
