@@ -21,4 +21,25 @@ describe('fetchSuccess reducer', () => {
       },
     });
   });
+
+  it('saves payload and removes fetching flag', () => {
+    const state = {
+      loading: true,
+      valid: false,
+    };
+    const result = reducers.fetchSuccess(state, {
+      payload: {
+        userId: 987,
+      },
+    });
+    expect(state).not.toBe(result);
+    expect(result).toEqual({
+      loading: false,
+      valid: true,
+      failed: false,
+      data: {
+        userId: 987,
+      },
+    });
+  });
 });

@@ -12,5 +12,5 @@ export default (state, action) => ({
   [FLAG_LOADING]: false,
   [FLAG_MISSING]: action[FLAG_MISSING],
   [FLAG_VALID]: true,
-  [STATE_DATA]: action[STATE_DATA],
+  [STATE_DATA]: action[STATE_DATA] || action.payload,
 });
