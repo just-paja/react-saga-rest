@@ -1,5 +1,6 @@
 export { default as combine } from './combine';
 export { default as fetchError } from './fetchError';
+export { default as fetchFailure } from './fetchFailure';
 export { default as fetchStart } from './fetchStart';
 export { default as fetchStop } from './fetchStop';
 export { default as fetchSuccess } from './fetchSuccess';
