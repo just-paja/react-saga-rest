@@ -1,7 +1,7 @@
 import * as reducers from '..';
 
 describe('pageSet reducer', () => {
-  it(' returns invalidates state with new page', () => {
+  it('returns invalidated state with new page', () => {
     const state = {
       valid: true,
       userId: 15,
@@ -15,5 +15,17 @@ describe('pageSet reducer', () => {
       valid: false,
       page: 1,
     });
+  });
+
+  it('returns same state when page did not change', () => {
+    const state = {
+      valid: true,
+      userId: 15,
+      page: 10,
+    };
+    const result = reducers.pageSet(state, {
+      page: 10,
+    });
+    expect(result).toBe(state);
   });
 });
