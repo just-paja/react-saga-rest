@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -28,7 +27,10 @@ export default class SceneProgress extends ContainerProgress {
   componentDidUpdate(prevProps) {
     const prevId = getMatchId(prevProps, this.props.matchParam);
     const currentId = getMatchId(this.props, this.props.matchParam);
-    if (currentId !== prevId) {
+    if (
+      currentId !== prevId ||
+      (!this.props.progress.valid && prevProps.progress.valid)
+    ) {
       this.handleResourceChange();
     }
   }

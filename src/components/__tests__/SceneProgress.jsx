@@ -214,6 +214,37 @@ describe('SceneProgress component', () => {
     expect(resourceChangeSpy.calledOnce).toBeFalsy();
   });
 
+  it('triggers onResourceChange with current resourceID on update when component turns invalid', () => {
+    const resourceChangeSpy = sinon.spy();
+    const comp = shallow(
+      <SceneProgress
+        ErrorComponent={ErrorComponent}
+        LoaderComponent={LoaderComponent}
+        NotFoundComponent={NotFoundComponent}
+        WrappedComponent={WrappedComponent}
+        bar="foo"
+        foo="bar"
+        match={{
+          params: {
+            someResourceId: 329,
+          },
+        }}
+        matchParam="someResourceId"
+        onResourceChange={resourceChangeSpy}
+        progress={{ valid: true }}
+      />
+    );
+    resourceChangeSpy.resetHistory();
+    comp.setProps({
+      progress: {
+        valid: false,
+      },
+    });
+    expect(resourceChangeSpy.called).toBeTruthy();
+    expect(resourceChangeSpy.args).toEqual([['329']]);
+    expect(resourceChangeSpy.calledOnce).toBeTruthy();
+  });
+
   it('triggers onExit on unmount when history path does not match location path without match id', () => {
     const exitSpy = sinon.spy();
     const history = {

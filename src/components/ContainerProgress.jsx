@@ -30,7 +30,10 @@ export default class ContainerProgress extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.resourceId !== prevProps.resourceId) {
+    if (
+      this.props.resourceId !== prevProps.resourceId ||
+      (!this.props.progress.valid && prevProps.progress.valid)
+    ) {
       this.handleResourceChange();
     }
   }

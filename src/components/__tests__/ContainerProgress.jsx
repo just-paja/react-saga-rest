@@ -226,6 +226,33 @@ describe('ContainerProgress component', () => {
     expect(resourceChangeSpy.called).toBeFalsy();
   });
 
+  it('triggers onResourceChange with current resourceID on update when component turns invalid', () => {
+    const resourceChangeSpy = sinon.spy();
+    const comp = shallow(
+      <ContainerProgress
+        ErrorComponent={ErrorComponent}
+        LoaderComponent={LoaderComponent}
+        NotFoundComponent={NotFoundComponent}
+        WrappedComponent={WrappedComponent}
+        bar="foo"
+        foo="bar"
+        resourceId="329"
+        matchParam="someResourceId"
+        onResourceChange={resourceChangeSpy}
+        progress={{ valid: true }}
+      />
+    );
+    resourceChangeSpy.resetHistory();
+    comp.setProps({
+      progress: {
+        valid: false,
+      },
+    });
+    expect(resourceChangeSpy.called).toBeTruthy();
+    expect(resourceChangeSpy.args).toEqual([['329']]);
+    expect(resourceChangeSpy.calledOnce).toBeTruthy();
+  });
+
   it('triggers onExit on unmount with passed resourceId', () => {
     const exitSpy = sinon.spy();
     const comp = shallow(
