@@ -1,6 +1,6 @@
 import pageReset from './pageReset';
 
-export default attr => (state, action) => pageReset({
+export default (attr, actionAttr) => (state, action) => pageReset({
   ...state,
-  [attr]: action[attr],
+  [attr]: action[actionAttr || attr],
 });
