@@ -1,4 +1,5 @@
 export { default as changeCollectionParam } from './changeCollectionParam';
+export { default as changeParam } from './changeParam';
 export { default as combine } from './combine';
 export { default as fetchError } from './fetchError';
 export { default as fetchFailure } from './fetchFailure';
