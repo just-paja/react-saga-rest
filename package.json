@@ -1,6 +1,6 @@
 {
   "name": "react-saga-rest",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Fetch and store data from REST APIs using redux, reselect and sagas",
   "main": "lib/index.js",
   "scripts": {
