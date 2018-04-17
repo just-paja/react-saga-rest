@@ -1,5 +1,5 @@
-export { default as combine } from './combine';
 export { default as changeCollectionParam } from './changeCollectionParam';
+export { default as combine } from './combine';
 export { default as fetchError } from './fetchError';
 export { default as fetchFailure } from './fetchFailure';
 export { default as fetchStart } from './fetchStart';
@@ -10,6 +10,7 @@ export { default as invalidateOnCollectionChange } from './invalidateOnCollectio
 export { default as invalidateOnResourceChange } from './invalidateOnResourceChange';
 export { default as pageReset } from './pageReset';
 export { default as pageSet } from './pageSet';
+export { default as replaceState } from './replaceState';
 export { default as toggle } from './toggle';
 export { default as turnOff } from './turnOff';
 export { default as turnOn } from './turnOn';
