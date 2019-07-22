@@ -1,4 +1,4 @@
-import getFlagValue from './getFlagValue';
-import getStateProperty from './getStateProperty';
+import getFlagValue from './getFlagValue'
+import getStateProperty from './getStateProperty'
 
-export default getStateProperty(flag => state => getFlagValue(state, flag));
+export default getStateProperty(flag => state => getFlagValue(state, flag))

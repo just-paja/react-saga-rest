@@ -1,3 +1,3 @@
-import { STATE_ERROR } from '../constants';
+import { STATE_ERROR } from '../constants'
 
-export default state => state[STATE_ERROR];
+export default state => state[STATE_ERROR]

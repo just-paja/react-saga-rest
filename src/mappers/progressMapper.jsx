@@ -1,11 +1,10 @@
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
 const getComponentName = (component, defaultName) => (
   component.displayName ||
   component.name ||
   defaultName
-);
-
+)
 
 export default ProgressSwitch => (WrappedComponent, {
   NotFoundComponent,
@@ -14,24 +13,24 @@ export default ProgressSwitch => (WrappedComponent, {
   progressSelector,
   onResourceChange,
   onExit,
-  matchParam,
+  matchParam
 }) => {
   if (!WrappedComponent) {
-    throw new Error('You must pass a Component.');
+    throw new Error('You must pass a Component.')
   }
   if (!onResourceChange) {
-    throw new Error('You must pass onResourceChange.');
+    throw new Error('You must pass onResourceChange.')
   }
   if (!progressSelector) {
-    throw new Error('You must pass progressSelector.');
+    throw new Error('You must pass progressSelector.')
   }
 
   class ProgressSwitchNamed extends ProgressSwitch {
   }
 
-  const wrappedName = getComponentName(WrappedComponent, 'Component');
-  const outerName = getComponentName(ProgressSwitch, 'ProgressSwitch');
-  ProgressSwitchNamed.displayName = `${outerName}(${wrappedName})`;
+  const wrappedName = getComponentName(WrappedComponent, 'Component')
+  const outerName = getComponentName(ProgressSwitch, 'ProgressSwitch')
+  ProgressSwitchNamed.displayName = `${outerName}(${wrappedName})`
 
   const mapStateToProps = (state, ownProps) => ({
     progress: progressSelector(state, ownProps),
@@ -39,11 +38,11 @@ export default ProgressSwitch => (WrappedComponent, {
     NotFoundComponent,
     ErrorComponent,
     LoaderComponent,
-    matchParam,
-  });
+    matchParam
+  })
 
   return connect(mapStateToProps, {
     onResourceChange,
-    onExit,
-  })(ProgressSwitchNamed);
-};
+    onExit
+  })(ProgressSwitchNamed)
+}

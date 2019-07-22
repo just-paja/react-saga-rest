@@ -1,72 +1,62 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 
 import {
   FLAG_FAILED,
   FLAG_LOADING,
   FLAG_MISSING,
   FLAG_VALID,
-  STATE_ERROR_LIST,
-} from '../constants';
+  STATE_ERROR_LIST
+} from '../constants'
 
 import {
   ResourceId,
-  ResourceProgress,
-} from '../proptypes';
-
-import { isOnServer } from '../utils';
+  ResourceProgress
+} from '../proptypes'
 
 export default class ContainerProgress extends Component {
-  componentWillMount() {
-    if (isOnServer()) {
-      this.handleResourceChange();
-    }
+  componentDidMount () {
+    this.handleResourceChange()
   }
 
-  componentDidMount() {
-    if (!isOnServer()) {
-      this.handleResourceChange();
-    }
-  }
-
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     if (
       this.props.resourceId !== prevProps.resourceId ||
       (!this.props.progress.valid && prevProps.progress.valid)
     ) {
-      this.handleResourceChange();
+      this.handleResourceChange()
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     if (this.props.onExit) {
-      this.props.onExit(this.props.resourceId || null);
+      this.props.onExit(this.props.resourceId || null)
     }
   }
 
-  getResourceId() {
-    return this.props.resourceId || null;
+  getResourceId () {
+    return this.props.resourceId || null
   }
 
-  handleResourceChange() {
-    this.handleResourceMethodCall(this.props.onResourceChange);
+  handleResourceChange () {
+    this.handleResourceMethodCall(this.props.onResourceChange)
   }
 
-  handleResourceMethodCall(method) {
-    const resourceId = this.getResourceId();
-    const args = [];
+  handleResourceMethodCall (method) {
+    const resourceId = this.getResourceId()
+    const args = []
     if (resourceId !== undefined) {
-      args.push(resourceId);
+      args.push(resourceId)
     }
-    method(...args);
+    method(...args)
   }
 
-  renderWrappedComponent(componentProps) {
-    const { WrappedComponent } = this.props;
-    return <WrappedComponent {...componentProps} />;
+  renderWrappedComponent (componentProps) {
+    const { WrappedComponent } = this.props
+    return <WrappedComponent {...componentProps} />
   }
 
-  render() {
+  render () {
     const {
       ErrorComponent,
       LoaderComponent,
@@ -74,21 +64,21 @@ export default class ContainerProgress extends Component {
       WrappedComponent,
       progress,
       ...otherProps
-    } = this.props;
-    let result;
+    } = this.props
+    let result
 
     if (progress[FLAG_LOADING]) {
-      result = <LoaderComponent />;
+      result = <LoaderComponent />
     } else if (progress[FLAG_MISSING]) {
-      result = <NotFoundComponent />;
+      result = <NotFoundComponent />
     } else if (progress[FLAG_FAILED]) {
-      result = <ErrorComponent errors={progress[STATE_ERROR_LIST] || []} />;
+      result = <ErrorComponent errors={progress[STATE_ERROR_LIST] || []} />
     } else if (!progress[FLAG_VALID]) {
-      result = <LoaderComponent />;
+      result = <LoaderComponent />
     } else {
-      result = this.renderWrappedComponent(otherProps);
+      result = this.renderWrappedComponent(otherProps)
     }
-    return result;
+    return result
   }
 }
 
@@ -101,11 +91,11 @@ ContainerProgress.propTypes = {
   onResourceChange: PropTypes.func.isRequired,
   progress: ResourceProgress.isRequired,
   resourceId: ResourceId,
-  WrappedComponent: PropTypes.func.isRequired,
-};
+  WrappedComponent: PropTypes.func.isRequired
+}
 
 ContainerProgress.defaultProps = {
   matchParam: null,
   onExit: null,
-  resourceId: null,
-};
+  resourceId: null
+}

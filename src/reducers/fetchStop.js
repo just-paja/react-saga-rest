@@ -1,4 +1,4 @@
-import { FLAG_LOADING } from '../constants';
-import turnOff from './turnOff';
+import { FLAG_LOADING } from '../constants'
+import turnOff from './turnOff'
 
-export default turnOff(FLAG_LOADING);
+export default turnOff(FLAG_LOADING)

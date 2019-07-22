@@ -1,4 +1,4 @@
 export default attr => state => ({
   ...state,
-  [attr]: true,
-});
+  [attr]: true
+})

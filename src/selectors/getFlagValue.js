@@ -1,1 +1,1 @@
-export default (state, flag) => (state ? !!state[flag] : false);
+export default (state, flag) => (state ? !!state[flag] : false)

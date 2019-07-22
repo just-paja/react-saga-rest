@@ -1,4 +1,4 @@
-import ContainerProgress from '../components/ContainerProgress';
-import progressMapper from './progressMapper';
+import ContainerProgress from '../components/ContainerProgress'
+import progressMapper from './progressMapper'
 
-export default progressMapper(ContainerProgress);
+export default progressMapper(ContainerProgress)

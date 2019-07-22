@@ -3,8 +3,8 @@ import {
   FLAG_LOADING,
   FLAG_MISSING,
   FLAG_VALID,
-  STATE_DATA,
-} from '../constants';
+  STATE_DATA
+} from '../constants'
 
 export default (state, action) => ({
   ...state,
@@ -12,5 +12,5 @@ export default (state, action) => ({
   [FLAG_LOADING]: false,
   [FLAG_MISSING]: action[FLAG_MISSING],
   [FLAG_VALID]: true,
-  [STATE_DATA]: action[STATE_DATA] || action.payload,
-});
+  [STATE_DATA]: action[STATE_DATA] || action.payload
+})

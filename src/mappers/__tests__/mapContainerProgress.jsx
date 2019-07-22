@@ -1,15 +1,22 @@
-import configureStore from 'redux-mock-store';
-import React from 'react';
+import configureStore from 'redux-mock-store'
+import React from 'react'
 
-import { shallow } from 'enzyme';
+import { mapContainerProgress } from '..'
+import { Provider } from 'react-redux'
+import { mount } from 'enzyme'
 
-import { mapContainerProgress } from '..';
+const NotFoundComponent = () => <span className='not-found' />
+const ErrorComponent = () => <span className='error' />
+const LoaderComponent = () => <span className='loader' />
+const WrappedComponent = () => <span className='foo' />
+const mockStore = configureStore()
 
-const NotFoundComponent = () => <span className="not-found" />;
-const ErrorComponent = () => <span className="error" />;
-const LoaderComponent = () => <span className="loader" />;
-const WrappedComponent = () => <span className="foo" />;
-const mockStore = configureStore();
+function renderWithStore (children, state) {
+  const store = mockStore(state)
+  const comp = mount(<Provider store={store}>{children}</Provider>)
+  comp.store = store
+  return comp
+}
 
 describe('mapContainerProgress mapper', () => {
   it('throws error when no component is passed to wrap', () => {
@@ -19,10 +26,10 @@ describe('mapContainerProgress mapper', () => {
         ErrorComponent,
         LoaderComponent,
         progressSelector: () => {},
-        onResourceChange: () => {},
-      })();
-    }).toThrow();
-  });
+        onResourceChange: () => ({ type: 'TEST' })
+      })()
+    }).toThrow()
+  })
 
   it('throws error when no progress selector is passed', () => {
     expect(() => {
@@ -30,10 +37,10 @@ describe('mapContainerProgress mapper', () => {
         NotFoundComponent,
         ErrorComponent,
         LoaderComponent,
-        onResourceChange: () => {},
-      });
-    }).toThrow();
-  });
+        onResourceChange: () => ({ type: 'TEST' })
+      })
+    }).toThrow()
+  })
 
   it('throws error when no onResourceChange is passed', () => {
     expect(() => {
@@ -41,35 +48,35 @@ describe('mapContainerProgress mapper', () => {
         NotFoundComponent,
         ErrorComponent,
         LoaderComponent,
-        progressSelector: () => {},
-      });
-    }).toThrow();
-  });
+        progressSelector: () => {}
+      })
+    }).toThrow()
+  })
 
   it('uses wrapped component display name in composed display name', () => {
-    const WrappedItem = () => <span />;
-    WrappedItem.displayName = 'foo';
+    const WrappedItem = () => <span />
+    WrappedItem.displayName = 'foo'
     const compClass = mapContainerProgress(WrappedItem, {
       NotFoundComponent,
       ErrorComponent,
       LoaderComponent,
       progressSelector: () => {},
-      onResourceChange: () => {},
-    });
-    expect(compClass.displayName).toBe('Connect(ContainerProgress(foo))');
-  });
+      onResourceChange: () => ({ type: 'TEST' })
+    })
+    expect(compClass.displayName).toBe('Connect(ContainerProgress(foo))')
+  })
 
   it('uses wrapped component name in composed display name', () => {
-    const WrappedItem = () => <span />;
+    const WrappedItem = () => <span />
     const compClass = mapContainerProgress(WrappedItem, {
       NotFoundComponent,
       ErrorComponent,
       LoaderComponent,
       progressSelector: () => {},
-      onResourceChange: () => {},
-    });
-    expect(compClass.displayName).toBe('Connect(ContainerProgress(WrappedItem))');
-  });
+      onResourceChange: () => ({ type: 'TEST' })
+    })
+    expect(compClass.displayName).toBe('Connect(ContainerProgress(WrappedItem))')
+  })
 
   it('uses Component when name is unavailable in composed display name', () => {
     const compClass = mapContainerProgress(() => <span />, {
@@ -77,110 +84,90 @@ describe('mapContainerProgress mapper', () => {
       ErrorComponent,
       LoaderComponent,
       progressSelector: () => {},
-      onResourceChange: () => {},
-    });
-    expect(compClass.displayName).toBe('Connect(ContainerProgress(Component))');
-  });
+      onResourceChange: () => ({ type: 'TEST' })
+    })
+    expect(compClass.displayName).toBe('Connect(ContainerProgress(Component))')
+  })
 
   it('passes not found component to progress info as prop', () => {
     const CompClass = mapContainerProgress(WrappedComponent, {
       NotFoundComponent,
       ErrorComponent,
       LoaderComponent,
-      onResourceChange: () => {},
-      progressSelector: state => state,
-    });
-    const comp = shallow(<CompClass />, {
-      context: {
-        store: mockStore(),
-      },
-    });
+      onResourceChange: () => ({ type: 'TEST' }),
+      progressSelector: state => state
+    })
+    const comp = renderWithStore(<CompClass />)
     expect(comp.find('ContainerProgress(WrappedComponent)')).toHaveProp(
       'NotFoundComponent',
       NotFoundComponent
-    );
-  });
+    )
+  })
 
   it('passes error component to progress info as prop', () => {
     const CompClass = mapContainerProgress(WrappedComponent, {
       NotFoundComponent,
       ErrorComponent,
       LoaderComponent,
-      onResourceChange: () => {},
-      progressSelector: state => state,
-    });
-    const comp = shallow(<CompClass />, {
-      context: {
-        store: mockStore(),
-      },
-    });
+      onResourceChange: () => ({ type: 'TEST' }),
+      progressSelector: state => state
+    })
+    const comp = renderWithStore(<CompClass />)
     expect(comp.find('ContainerProgress(WrappedComponent)')).toHaveProp(
       'ErrorComponent',
       ErrorComponent
-    );
-  });
+    )
+  })
 
   it('passes loader component to progress info as prop', () => {
     const CompClass = mapContainerProgress(WrappedComponent, {
       NotFoundComponent,
       ErrorComponent,
       LoaderComponent,
-      onResourceChange: () => {},
-      progressSelector: state => state,
-    });
-    const comp = shallow(<CompClass />, {
-      context: {
-        store: mockStore(),
-      },
-    });
+      onResourceChange: () => ({ type: 'TEST' }),
+      progressSelector: state => state
+    })
+    const comp = renderWithStore(<CompClass />)
     expect(comp.find('ContainerProgress(WrappedComponent)')).toHaveProp(
       'LoaderComponent',
       LoaderComponent
-    );
-  });
+    )
+  })
 
   it('passes wrapped component to progress info as prop', () => {
     const CompClass = mapContainerProgress(WrappedComponent, {
       NotFoundComponent,
       ErrorComponent,
       LoaderComponent,
-      onResourceChange: () => {},
-      progressSelector: state => state,
-    });
-    const comp = shallow(<CompClass />, {
-      context: {
-        store: mockStore(),
-      },
-    });
+      onResourceChange: () => ({ type: 'TEST' }),
+      progressSelector: state => state
+    })
+    const comp = renderWithStore(<CompClass />)
     expect(comp.find('ContainerProgress(WrappedComponent)')).toHaveProp(
       'WrappedComponent',
       WrappedComponent
-    );
-  });
+    )
+  })
 
   it('passes selected progress as prop', () => {
     const CompClass = mapContainerProgress(WrappedComponent, {
       NotFoundComponent,
       ErrorComponent,
       LoaderComponent,
-      onResourceChange: () => {},
-      progressSelector: state => state.foo.status,
-    });
-    const comp = shallow(<CompClass />, {
-      context: {
-        store: mockStore({
-          foo: {
-            status: {
-              valid: true,
-            },
-          },
-        }),
-      },
-    });
+      onResourceChange: () => ({ type: 'TEST' }),
+      progressSelector: state => state.foo.status
+    })
+    const comp = renderWithStore(<CompClass />, {
+      foo: {
+        status: {
+          valid: true
+        }
+      }
+    })
     expect(comp.find('ContainerProgress(WrappedComponent)')).toHaveProp('progress', {
-      valid: true,
-    });
-  });
+      valid: true
+    })
+  })
 
   it('passes connected onResourceChange as prop', () => {
     const CompClass = mapContainerProgress(WrappedComponent, {
@@ -188,21 +175,16 @@ describe('mapContainerProgress mapper', () => {
       ErrorComponent,
       LoaderComponent,
       onResourceChange: () => ({ type: 'RESOURCE_CHANGED' }),
-      progressSelector: state => state.foo.status,
-    });
-    const store = mockStore({
+      progressSelector: state => state.foo.status
+    })
+    const comp = renderWithStore(<CompClass />, {
       foo: {
         status: {
-          valid: true,
-        },
-      },
-    });
-    const comp = shallow(<CompClass />, {
-      context: { store },
-    });
-    comp.find('ContainerProgress(WrappedComponent)').simulate('resourceChange');
-    expect(store.getActions()).toMatchObject([
-      { type: 'RESOURCE_CHANGED' },
-    ]);
-  });
-});
+          valid: true
+        }
+      }
+    })
+    comp.find('ContainerProgress(WrappedComponent)').props().onResourceChange()
+    expect(comp.store.getActions()).toContainEqual({ type: 'RESOURCE_CHANGED' })
+  })
+})

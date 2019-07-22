@@ -1,5 +1,5 @@
-import { STATE_PAGE } from '../constants';
+import { STATE_PAGE } from '../constants'
 
-import pageSet from './pageSet';
+import pageSet from './pageSet'
 
-export default state => pageSet(state, { [STATE_PAGE]: 0 });
+export default state => pageSet(state, { [STATE_PAGE]: 0 })

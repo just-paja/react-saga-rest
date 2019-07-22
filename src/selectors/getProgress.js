@@ -1,8 +1,8 @@
-import { createSelector } from 'reselect';
+import { createSelector } from 'reselect'
 
-import getFlagValue from './getFlagValue';
+import getFlagValue from './getFlagValue'
 
-import { isStateRequired } from './isRequired';
+import { isStateRequired } from './isRequired'
 import {
   FLAG_FAILED,
   FLAG_LOADING,
@@ -10,8 +10,8 @@ import {
   FLAG_REQUIRED,
   FLAG_VALID,
   STATE_ERROR,
-  STATE_ERROR_LIST,
-} from '../constants';
+  STATE_ERROR_LIST
+} from '../constants'
 
 const translateStateProgress = state => ({
   [FLAG_FAILED]: getFlagValue(state, FLAG_FAILED),
@@ -19,16 +19,16 @@ const translateStateProgress = state => ({
   [FLAG_MISSING]: getFlagValue(state, FLAG_MISSING),
   [FLAG_REQUIRED]: isStateRequired(state),
   [FLAG_VALID]: getFlagValue(state, FLAG_VALID),
-  [STATE_ERROR_LIST]: state && state[STATE_ERROR] ? [state[STATE_ERROR]] : [],
-});
+  [STATE_ERROR_LIST]: state && state[STATE_ERROR] ? [state[STATE_ERROR]] : []
+})
 
 export default (...selectors) => createSelector(
   selectors,
   (...states) => {
     if (states.length === 1) {
-      return translateStateProgress(states[0]);
+      return translateStateProgress(states[0])
     }
-    const progressMap = states.map(translateStateProgress);
+    const progressMap = states.map(translateStateProgress)
     return {
       [FLAG_FAILED]: progressMap.some(state => getFlagValue(state, FLAG_FAILED)),
       [FLAG_LOADING]: progressMap.some(state => getFlagValue(state, FLAG_LOADING)),
@@ -38,6 +38,6 @@ export default (...selectors) => createSelector(
       [STATE_ERROR_LIST]: progressMap
         .filter(progress => progress.errors.length > 0)
         .map(progress => progress[STATE_ERROR_LIST])
-        .reduce((aggr, errors) => aggr.concat(errors), []),
-    };
-  });
+        .reduce((aggr, errors) => aggr.concat(errors), [])
+    }
+  })
