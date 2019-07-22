@@ -4,7 +4,7 @@
   "description": "Fetch and store data from REST APIs using redux, reselect and sagas",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel -d lib src --ignore *test*",
+    "build": "babel src -d lib --ignore **/__tests__/*.js,**/__tests__/*.jsx",
     "clean": "rimraf lib",
     "prepack": "npm test && npm run build",
     "test": "jest"
@@ -36,6 +36,7 @@
   ],
   "homepage": "https://github.com/just-paja/react-saga-rest#readme",
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
