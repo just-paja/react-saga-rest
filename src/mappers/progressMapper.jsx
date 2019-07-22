@@ -33,8 +33,8 @@ export default ProgressSwitch => (WrappedComponent, {
   const outerName = getComponentName(ProgressSwitch, 'ProgressSwitch');
   ProgressSwitchNamed.displayName = `${outerName}(${wrappedName})`;
 
-  const mapStateToProps = state => ({
-    progress: progressSelector(state),
+  const mapStateToProps = (state, ownProps) => ({
+    progress: progressSelector(state, ownProps),
     WrappedComponent,
     NotFoundComponent,
     ErrorComponent,
